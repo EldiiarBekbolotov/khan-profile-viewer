@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<!-- © 2025 Eldiiar Bekbolotov -->
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FQH9XE929F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FQH9XE929F');
+</script>
+  <meta http-equiv="Content-Language" content="en_US" /><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" /><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" /><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" /><link rel="manifest" href="/site.webmanifest" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Khan Profile Viewer</title><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="css/singlepageprojects.css">
+</head>
+<body>
+	<div id="overlay" onclick="toggleNav();"></div>
+	<div id="sidenav">
+		<a href="#!" onclick="scene(0);toggleNav();"
+			class="mobile-navlink active"><span class="material-symbols-rounded">home</span> Home</a>
+		<a href="#!" onclick="scene(1);toggleNav();"
+			class="mobile-navlink"><span class="material-symbols-rounded">database_search</span>
+			Projects</a>
+		<a href="#!" onclick="scene(2);toggleNav();"
+			class="mobile-navlink"><span class="material-symbols-rounded">developer_mode_tv</span>
+			Editor</a>
+		<a href="#!" onclick="scene(3);toggleNav();"
+			class="mobile-navlink"><span class="material-symbols-rounded">code</span>
+			Playground</a>
+	</div>
+
+	<nav class="navbar-fixed">
+		<a href="javascript: toggleNav();" class="navlink-menu">
+			<span class="material-symbols-rounded">menu</span>
+		</a>
+		<a href="#!" onclick="scene(0);" class="logo"> <span id="ka-logo">KHAN</span> Profile Viewer</a>
+
+		<a href="#!" onclick="scene(0);"
+			class="navlink navselector active"><span class="material-symbols-rounded">home</span> Home</a>
+		<a href="#!" onclick="scene(1);"
+			class="navlink navselector active"><span class="material-symbols-rounded">database_search</span>
+			Projects</a>
+		<a href="#!" onclick="scene(2);"
+			class="navlink navselector active"><span class="material-symbols-rounded">developer_mode_tv</span>
+			Editor</a>
+		<a href="#!" onclick="scene(3);"
+			class="navlink navselector active"><span class="material-symbols-rounded">code</span>
+			Playground</a>
+		</div>
+	</nav>
+	<div style="height: 70px"></div>
+
+	<div id="throw">
+		<div class="container center jumbo mesh-gradient" style="
+		padding-top:15vh;
+		padding-bottom: 15vh;
+          color: var(--btn-text-color);
+		  background-color: hsla(0, 0%, 6%, 0.9);
+  background-image: radial-gradient(
+      at 98% 96%,
+      rgb(47, 59, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 2% 3%, rgb(84, 1, 1) 0px, transparent 50%),
+    radial-gradient(at 99% 3%, rgb(44, 2, 64) 0px, transparent 50%),
+    radial-gradient(at 47% 84%, rgb(1, 56, 16) 0px, transparent 50%),
+    radial-gradient(at 29% 81%, rgb(1, 24, 74) 0px, transparent 50%);">
+			<h1 style="letter-spacing:0px;">An Interactive <b style="color: rgb(0, 132, 255);">Portfolio</b> for Your Khan Academy <b style="color:#F44336;">Computer Programming</b> Projects</h1>
+			<p style='font-size:18px;'>
+				Explore your Khan Academy Computer Programming profile in a better, more detailed environment.
+			</p>
+			<input type="text" id="userprompt" placeholder="Enter your Khan Academy username" />
+			<button
+          onclick="setupProfile();"
+          class="btn"
+          style="margin-bottom: 20px; margin-top: 20px"
+        >
+          View Profile
+          <span class="material-symbols-rounded">arrow_forward</span>
+        </button>
+
+		<p class="cool" style="margin-top:40px;">Portfolio Examples</p>
+		<p>Don't have an account? Check out these examples!</p>
+		<button
+	  onclick="setupProfile('LeaferStudios');"
+	  class="btn btn-outlined"
+	  style="margin-bottom: 20px; margin-top: 20px"
+	>
+	 @LeaferStudios
+	  <span class="material-symbols-rounded">person_outline</span>
+	</button>
+
+		</div>
+		
+	</div>
+
+	<div class="scene">
+		<div class="container center jumbo" style="background-color:#1a1a1a;">
+		
+
+
+			<p class="cool">OVERVIEW</p>
+			<h2>Built-in Code Playground</h2>
+			<p>
+				A complete front end code editor with hot reload and responsive
+				design.
+			</p>
+			<h2>Detailed Program Explorer</h2>
+			<p>
+				With more detail than Khan Academy itself, you can search all of your
+				projects, view program statistics, and read all feedback including
+				comments and questions.
+			</p>
+			<h2>Powerful Editor</h2>
+			<p>
+				An editor that can run Khan Academy's modified Processing.js version
+				used by their live coding environment.
+			</p>
+
+            <h2>Every Program in Your Account</h2>
+            
+            <p>View, edit, and share all of your Khan Academy projects in a better environment.</p>
+		</div>
+	</div>
+
+	<div class="scene">
+		<input type="text" id="search" placeholder="Search programs..." />
+		<div id="programSelectors">
+			<div class="spinner" style="margin: 40px 0"></div>
+		</div>
+	</div>
+
+	<div class="scene">
+		<div id="area">
+			<div id="loading">
+				<div class="center-transform">
+					<div class="spinner"></div>
+				</div>
+			</div>
+
+			<div id="container">
+				<div class="top-vv">
+					<button
+              class="btn btn-outlined"
+              style="
+                float: left;
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                padding: 0px;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                left: 10px;
+              "
+              onclick="scene(1);"
+            >
+              <span class="material-symbols-rounded" style="margin-bottom: 5px"
+                >arrow_back</span
+              >
+            </button>
+					<h2 id="program-title" style="margin-left: 45px; position: relative; top: -5px">
+						Program
+					</h2>
+				</div>
+				<div class="editor-iframe">
+					<div id="editor"></div>
+					<div id="iframebox">
+						<iframe id="iframe" frameborder="0"></iframe>
+					</div>
+				</div>
+				<div class="bottom-vv">
+					<button id="runButton" class="btn">
+              <span class="material-symbols-rounded">play_arrow</span> Restart
+            </button>
+
+					<button onclick="openPopup(0);" class="btn-fab">
+              <span class="material-symbols-rounded">settings</span>
+            </button>
+				</div>
+			</div>
+			<div id="stats"></div>
+			<nav class="navbar-flex">
+				<a class="navbar-flex-link" onclick="openComments();">Comments</a>
+				<a class="navbar-flex-link" onclick="openQuestions();">Questions</a>
+			</nav>
+			<div id="discussion">
+				<div id="questions"></div>
+				<div id="comments"></div>
+			</div>
+		</div>
+
+		<div id='selectProgram'>
+
+			<h1>Choose a Project to Display</h1>
+			<p>Please select a program from <span class="material-symbols-rounded">database_search</span> Projects</p>
+
+			<button onclick='scene(1);' class='btn'><span class="material-symbols-rounded">database_search</span> Projects</button>
+		</div>
+	</div>
+
+	<div class='scene'>
+		<div class='container jumbo' style='background-color: rgba(0,0,0,0.5);border-top:2px solid var(--primary);'>
+			<h1><span class='material-symbols-rounded' style='font-size:inherit;'>code</span> Playground</h1>
+			<p>Online code editors with instant hot reload</p>
+		</div>
+		<div class='container'>
+			<p>Turn <span class='material-symbols-rounded' style='font-size:inherit;'>developer_mode_tv</span> Editor
+				into your playground:</p>
+			<button class='btn-outlined btn-card' onclick="initialize('html_demo');document.getElementById('selectProgram').style.display='none';scene(2);">
+
+          <h1><span class='material-symbols-rounded' style='font-size:inherit;'>language</span> My Web Playground</h1>
+           <ul style='text-align:left;font-weight:400;'>
+			<li style='margin:10px 0px;'>Write HTML, CSS, and JavaScript code online</li>
+			<li>Auto-runs code in real-time as you type with no delay.</li>
+      <li>Full width on desktop, Mobile responsive</li>
+		</ul>
+        
+      </button>
+
+			<p>More playgrounds coming soon.</p>
+		</div>
+	</div>
+
+	<div id="zzzz" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9999;
+        display: none;
+        background-color: var(--bg);
+      ">
+		<div style="padding: 20px">
+			<button
+          class="btn btn-outlined"
+          onclick='ZZZZ("none","");initialize("false");'
+        >
+          <span class="material-symbols-rounded">arrow_back</span> Back
+        </button>
+			<button class="btn" onclick="initialize(true);">
+          <span class="material-symbols-rounded">calculate</span> Start Scanning
+        </button>
+
+			<h4>Scan all programs to get lines of code data</h4>
+			<p>
+				<b>Warning</b>: This is an experimental feature. You cannot go back
+				after starting scan until scan is finished. Takes a few minutes to
+				complete.
+			</p>
+
+			<div id="zzzz-text"></div>
+		</div>
+	</div>
+
+	<div class="popup">
+		<button
+        onclick='openPopup(0,"close");'
+        class="btn-fab"
+        style="margin: 5px"
+      >
+        <span class="material-symbols-rounded">close</span>
+      </button>
+
+		<div class="container">
+			<h2><span class="material-symbols-rounded">settings</span> Options</h2>
+			<p>Program options are experimental.</p>
+			<a onclick='toggleHotReload();' class="btn-outlined" style='cursor:pointer;padding:5px;display:block;'
+				id='hotReloadIndicator'>
+				Disable Hot Reload
+			</a>
+			<p>Hot Reload is always enabled for your code playgrounds.</p>
+
+			<a onclick='ZZZZ("block","");' class="btn-outlined"
+				style='margin-top:15px;cursor:pointer;padding:5px;display:block;'>
+
+				<span class="material-symbols-rounded">calculate</span> Run Total
+				Lines of Code (All Programs)
+			</a>
+		</div>
+	</div>
+
+	<footer>
+		<div style='display:flex;justify-content:space-between;'>
+      <p></p>
+			<p>&copy; 2025 <span id='currentYear'></span> <a href="https://github.com/EldiiarBekbolotov" target="_blank">Eldiiar Bekbolotov</a></p>
+			<p>
+				<a href='https://github.com/EldiiarBekbolotov' target='_blank'>
+					<svg style='width:24px;height:24px;' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"
+						fill="var(--btn-text-color)" class="h-6 w-6" aria-hidden="true">
+						<path
+							d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+						</path>
+					</svg>
+				</a>
+			</p>
+		</div>
+	</footer>
+
+	<script src="https://cdn.jsdelivr.net/npm/@bhavjit/khan-api"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/ext-language_tools.min.js"
+		integrity="sha512-yszTJ9Ko+JGmUNZYpHStWpMg2rSXrh2WjSSZGydzpHY+qOS/3nSgA+hBHUK3RvLhfjycKL8XWEmfUCZod/mEqA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="js/khanapi.min.js"></script><script src="js/ace.min.js"></script><script src="js/singlepageprojects.js"></script>
+</body></html>
