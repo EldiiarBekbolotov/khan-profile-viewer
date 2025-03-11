@@ -12,12 +12,15 @@ Share your Khan Academy projects in a better environment. It has every program i
 Share with other people in this format:
 `https://khanprofileviewer.web.app/?user=YourUsernameHere`, e.g. `https://khanprofileviewer.web.app/?user=LeaferStudios`
 
-<img width="1273" alt="Screenshot 2025-02-13 at 3 59 41 PM" src="https://github.com/user-attachments/assets/5b744697-8d1b-4739-930e-66974b6ba0f0" />
+In the screenshots below, it loads all 720+ of my Khan Academy programs, totaling hundreds of thousands of lines of code.
 
-<img width="1275" alt="Screenshot 2025-02-13 at 4 06 03 PM" src="https://github.com/user-attachments/assets/29abbe9f-9aa0-4a30-9e8d-455c150fc2e1" />
+<img width="1276" alt="Screenshot 2025-03-11 at 4 00 51 PM" src="https://github.com/user-attachments/assets/523ce390-36b1-4298-bfc2-cc460385ded1" />
+<img width="1276" alt="Screenshot 2025-03-11 at 4 02 04 PM" src="https://github.com/user-attachments/assets/82a6d503-4d2a-498d-bc14-3c2f735ba6df" />
+<img width="1275" alt="Screenshot 2025-03-11 at 4 02 57 PM" src="https://github.com/user-attachments/assets/dae277f1-6eb6-4ca3-a39e-3ba5b77cbd9a" />
 
 ## Playground tab
 
 **Built-in Code Playground**: It has a complete front end code editor with hot reload and responsive design.
+<img width="496" alt="Screenshot 2025-03-11 at 4 04 03 PM" src="https://github.com/user-attachments/assets/da12a298-bc76-4c58-9d29-3444469b5ad8" />
 
-Author: <a href='github.com/EldiiarBekbolotov' target='_blank'>Eldiiar Bekbolotov</a> a.k.a @LeaferStudios on the Khan Academy community
+Contact Author: <a href='github.com/EldiiarBekbolotov' target='_blank'>Eldiiar Bekbolotov</a> a.k.a @LeaferStudios on the Khan Academy community
