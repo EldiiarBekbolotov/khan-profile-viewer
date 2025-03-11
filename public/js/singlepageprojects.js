@@ -18,6 +18,7 @@ function setupProfile(ur) {
     }
   }
 }
+//setupProfile('eldiiarbekbolotov');
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const extractedUsername = urlParams.get('user');
@@ -653,6 +654,17 @@ function searchPrograms() {
   );
   renderProgramSelectors();
 }
+async function fetchUserDetails() {
+  try {
+    const client = new KhanAPI.Client();
+    const user = await client.getUser(username);
+    return user;
+  } catch (error) {
+    //console.error(error);
+    return null;
+  }
+}
+
 async function initialize(countLines) {
 
 
@@ -673,6 +685,22 @@ async function initialize(countLines) {
     filteredPrograms = programDetails;
     renderProgramSelectors();
     if (programDetails.length > 0) {
+      userDetails = await fetchUserDetails();
+      console.log(userDetails);
+      document.getElementById('user-profile').innerHTML = `
+      <h1>@${username}</h1>
+      <p>Nickname: ${userDetails.nickname?userDetails.nickname:"This user's nickname is not public."}</p>
+      <p style='padding: 14px;background-color:rgba(255,255,255,0.2);border-radius:8px;'>${userDetails.bio?userDetails.bio:"This user's bio is not public."}</p>
+      <ul>
+      <ol>${programDetails.length} Public Programs</ol>
+      <ol>${userDetails.joined?userDetails.joined:"<em>This user's join date is not public.</em>"}</ol>
+      <ol>
+      ${userDetails.statistics?userDetails.statistics:"<em>This user's statistics are not public.</em>"}
+      </ol>
+      </ul>
+      <p>Badges: ${userDetails.badgeCounts?userDetails.badgeCounts:"<em>This user's badges are not public.</em>"}</p>
+      <button onclick='location.reload();' class='btn-outlined'>Logout</button>
+      `;
       if (countLines === 'ok') {
         // stay in program
       }

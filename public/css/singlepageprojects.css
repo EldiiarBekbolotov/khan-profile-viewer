@@ -979,3 +979,59 @@ footer a:hover svg {
 footer a:hover {
   text-decoration: underline;
 }
+#userprompt {
+  margin: 0px !important;
+  border-radius: 10px 0px 0px 10px;
+  height: 45px;
+  max-width: 400px;
+  border: 1px solid rgb(157, 157, 157);
+  border-right: 0px;
+  color: #FFF;
+}
+#userprompt:hover {
+  background-color: rgb(56, 56, 56);
+  border: 1px solid rgb(239, 239, 239);
+  border-right: 0px;
+}
+#userprompt:focus {
+  background-color: rgb(34, 34, 34);
+  border: 1px solid rgb(245, 9, 9) !important;
+  border-right: 0px !important;
+  outline: 0px !important;
+}
+.grid-btn {
+  height: 45px;
+  margin:0px !important;
+  border-radius:0px 10px 10px 0px;
+  font-size: 14px;
+  width: 90px;
+  padding: 0px;
+  text-align: center;
+  border: 1px solid rgb(157, 157, 157);
+  border-left: 0px;
+}
+.grid-btn:hover {
+  border: 1px solid rgb(239, 239, 239);
+  border-left: 0px;
+  box-shadow: none !important;
+}
+.grid-btn:focus {
+  transform: scale(1) !important;
+  outline: none !important;
+  border: 1px solid rgb(245, 9, 9);
+  border-left: 0px;
+  box-shadow: none !important;
+}
+.grid-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius:0px 10px 10px 0px;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: all 0.3s;
+  pointer-events: none;
+}

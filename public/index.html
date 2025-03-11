@@ -74,15 +74,18 @@
 			<p style='font-size:18px;'>
 				Explore your Khan Academy Computer Programming profile in a better, more detailed environment.
 			</p>
-			<input type="text" id="userprompt" placeholder="Enter your Khan Academy username" />
+			<div style="margin:0px;display:flex;width:100%;justify-content:center;">
+			<input type="text" id="userprompt" placeholder="Enter your Khan Academy username" 
+			/>
 			<button
+			
           onclick="setupProfile();"
-          class="btn"
-          style="margin-bottom: 20px; margin-top: 20px"
+          class="btn grid-btn"
+          
         >
-          View Profile
-          <span class="material-symbols-rounded">arrow_forward</span>
+          Go <span class="material-symbols-rounded">arrow_forward</span>
         </button>
+	</div>
 
 		<p class="cool" style="margin-top:40px;">Portfolio Examples</p>
 		<p>Don't have an account? Check out these examples!</p>
@@ -95,14 +98,17 @@
 	  <span class="material-symbols-rounded">person_outline</span>
 	</button>
 
+		<p>*Children under the age of 13 cannot have public projects on Khan Academy</p>
+
 		</div>
 		
 	</div>
 
 	<div class="scene">
+		<div class="container center jumbo">
+			<div id="user-profile"></div>
+		</div>
 		<div class="container center jumbo" style="background-color:#1a1a1a;">
-		
-
 
 			<p class="cool">OVERVIEW</p>
 			<h2>Built-in Code Playground</h2>
