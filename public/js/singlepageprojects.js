@@ -18,7 +18,6 @@ function setupProfile(ur) {
     }
   }
 }
-//setupProfile('eldiiarbekbolotov');
 document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const extractedUsername = urlParams.get('user');
@@ -118,16 +117,20 @@ function openPopup(index, type) {
   popup.style.display = 'none';
   });*/
   if (type === "close") {
+
     document.getElementsByClassName("popup")[index].style.animation =
       "0.1s slideOut forwards";
   } else if (type === 'hide') {
     document.getElementsByClassName("popup")[index].style.display = 'none';
+    document.getElementsByClassName("popup")[index].style.animation =
+      "0.1s slideOut forwards";
   } else {
+    document.getElementsByClassName("popup")[index].style.display = 'block';
     document.getElementsByClassName("popup")[index].style.animation =
       "0.6s slideIn forwards";
   }
 }
-openPopup(0, 'close');
+openPopup(0, 'hide');
 async function fetchProgramDetails() {
   document.getElementById("loading").style.display = "block";
   try {
@@ -550,7 +553,7 @@ function update(code, widths, heights, aceMod, demo = false) {
 var Program = {
       restart: function(){
 //window.location.reload.bind(window)		        
-alert('Program restart is not available in Eldiiar KA yet. Please re-run the program manually or go to Khan Academy.');
+alert('Program restart is not available on Khan Profile Viewer yet. Please re-run the program manually or go to Khan Academy.');
       }
   };
               title("");
@@ -664,7 +667,6 @@ async function fetchUserDetails() {
     return null;
   }
 }
-
 async function initialize(countLines) {
 
 
@@ -677,14 +679,19 @@ async function initialize(countLines) {
     if (!username || username.trim() === '') {
       return;
     } else if (programDetails.length === 0) {
-      alert('This user does not have any projects! Please enter a valid username. Press OK to reload page.');
       document.getElementById('throw').style.display = 'block';
-      location.reload();
+      document.getElementById('throw').style.backgroundColor = '#333';
+      document.getElementById('throw').innerHTML = `
+      <div style='padding:45px;'><h2>This user does not have any projects!</h2> Please enter a valid username with public projects on their profile. Press <b>Retry<b/> to reload page.<button style='display:block;margin-top:45px;' onclick='location.reload();'>Retry</button></div>`;
+      
+      
+      
       return;
     }
     filteredPrograms = programDetails;
     renderProgramSelectors();
     if (programDetails.length > 0) {
+      
       userDetails = await fetchUserDetails();
       console.log(userDetails);
       document.getElementById('user-profile').innerHTML = `
@@ -692,13 +699,18 @@ async function initialize(countLines) {
       <p>Nickname: ${userDetails.nickname?userDetails.nickname:"This user's nickname is not public."}</p>
       <p style='padding: 14px;background-color:rgba(255,255,255,0.2);border-radius:8px;'>${userDetails.bio?userDetails.bio:"This user's bio is not public."}</p>
       <ul>
-      <ol>${programDetails.length} Public Programs</ol>
-      <ol>${userDetails.joined?userDetails.joined:"<em>This user's join date is not public.</em>"}</ol>
+      <li>${programDetails.length} Public Programs</li>
+      <li>${userDetails.joined?userDetails.joined:"<em>This user's join date is not public.</em>"}</li>
       <ol>
       ${userDetails.statistics?userDetails.statistics:"<em>This user's statistics are not public.</em>"}
       </ol>
       </ul>
-      <p>Badges: ${userDetails.badgeCounts?userDetails.badgeCounts:"<em>This user's badges are not public.</em>"}</p>
+      <p><b>User Badges</b>: ${userDetails.badgeCounts ? Object.entries({ 0: "Challenge Patches", 1: "Black Hole Badges", 2: "Sun Badges", 3: "Earth Badges", 4: "Moon Badges", 5: "Meteorite Badges" }).map(([k, v]) => userDetails.badgeCounts[k] > 0 ? `${v}: ${userDetails.badgeCounts[k]}` : "").filter(Boolean).join(", ") || "<em>No badges</em>" : "<em>This user's badges are not public.</em>"}</p>
+      <ul>
+      <li>Sharable <a href='https://khanprofileviewer.web.app/?user=${username}' target='_blank'><b>Khan Profile Viewer</b></a> link
+      </li>
+      <li><a href='https://www.khanacademy.org/profile/${userDetails.kaid}/' target='_blank'><b>Khan Academy</b></a> Profile Permalink</li>
+      </ul>
       <button onclick='location.reload();' class='btn-outlined'>Logout</button>
       `;
       if (countLines === 'ok') {

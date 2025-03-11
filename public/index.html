@@ -98,7 +98,7 @@
 	  <span class="material-symbols-rounded">person_outline</span>
 	</button>
 
-		<p>*Children under the age of 13 cannot have public projects on Khan Academy</p>
+		<p style="font-size:13px;">*Children under the age of 13 cannot have public projects on Khan Academy. Some user stats, projects may be hidden from public view.</p>
 
 		</div>
 		
@@ -106,7 +106,28 @@
 
 	<div class="scene">
 		<div class="container center jumbo">
-			<div id="user-profile"></div>
+			<div id="user-profile">
+				<div class="center-transform" >
+					<div class="spinner"></div>
+					</div>
+					<h3>Loading Profile...</h3>
+					<button
+	  onclick="scene(1);"
+	  class="btn btn-outlined"
+	  style="margin-top: 20px"
+	>
+	 View Projects
+	  <span class="material-symbols-rounded">arrow_forward</span>
+	</button>
+	<button
+	  onclick="scene(3);"
+	  class="btn btn-outlined"
+	  style="margin-top: 20px"
+	>
+	 Code Playground
+	  <span class="material-symbols-rounded">arrow_forward</span>
+	</button>
+			</div>
 		</div>
 		<div class="container center jumbo" style="background-color:#1a1a1a;">
 
