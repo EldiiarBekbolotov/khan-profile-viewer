@@ -421,9 +421,9 @@ async function setupEditor(programIndex) {
 <li> <span class="material-symbols-rounded">forum</span> ${stats.replyCount} Comments</li>
              <li> <span class="material-symbols-rounded">contact_support</span> ${stats.questionCount} Questions</li>
 <li><span class="material-symbols-rounded">calendar_month</span> Created ${stats.created}</li>
-<li><span class="material-symbols-rounded">history</span> Created ${stats.updated}</li>
+<li><span class="material-symbols-rounded">history</span> Updated ${stats.updated}</li>
 <li><span class="material-symbols-rounded">language</span> Type: ${language}</li>
-<li><span class="material-symbols-rounded">open_in_new</span> <a href=${stats.url} target='_blank'>Visit on Khan Academy</a></li>
+<li>Code license: <a href='https://opensource.org/license/mit' target='_blank'>MIT</a>. For more information, <span class="material-symbols-rounded">open_in_new</span> <a href=${stats.url} target='_blank'>Visit on Khan Academy</a></li>
 </ul>
 `;
 
@@ -680,12 +680,9 @@ async function initialize(countLines) {
       return;
     } else if (programDetails.length === 0) {
       document.getElementById('throw').style.display = 'block';
-      document.getElementById('throw').style.backgroundColor = '#333';
+      document.getElementById('throw').style.backgroundColor = '#232323';
       document.getElementById('throw').innerHTML = `
-      <div style='padding:45px;'><h2>This user does not have any projects!</h2> Please enter a valid username with public projects on their profile. Press <b>Retry<b/> to reload page.<button style='display:block;margin-top:45px;' onclick='location.reload();'>Retry</button></div>`;
-      
-      
-      
+      <div style='padding:45px;'><h2>This user does not have any projects!</h2><p> Please enter a valid username with public projects on their profile. Press <b>Home</b> to go back.</p><a href='https://khanprofileviewer.web.app/'><button style='display:block;margin-top:45px;'><span class="material-symbols-rounded">home</span> Home</button></a></div>`;
       return;
     }
     filteredPrograms = programDetails;
@@ -700,16 +697,16 @@ async function initialize(countLines) {
       <p style='padding: 14px;background-color:rgba(255,255,255,0.2);border-radius:8px;'>${userDetails.bio?userDetails.bio:"This user's bio is not public."}</p>
       <ul>
       <li>${programDetails.length} Public Programs</li>
-      <li>${userDetails.joined?userDetails.joined:"<em>This user's join date is not public.</em>"}</li>
-      <ol>
-      ${userDetails.statistics?userDetails.statistics:"<em>This user's statistics are not public.</em>"}
-      </ol>
-      </ul>
-      <p><b>User Badges</b>: ${userDetails.badgeCounts ? Object.entries({ 0: "Challenge Patches", 1: "Black Hole Badges", 2: "Sun Badges", 3: "Earth Badges", 4: "Moon Badges", 5: "Meteorite Badges" }).map(([k, v]) => userDetails.badgeCounts[k] > 0 ? `${v}: ${userDetails.badgeCounts[k]}` : "").filter(Boolean).join(", ") || "<em>No badges</em>" : "<em>This user's badges are not public.</em>"}</p>
-      <ul>
+      <li>${userDetails.joined?"Account Created " + userDetails.joined:"<em>This user's join date is not public.</em>"}</li>
+     
+      <li>${userDetails.points?userDetails.points + " Experience Points":"<em>This user's points are not public.</em>"}
+      </li>
+      <li><b>User Badges</b>: ${userDetails.badgeCounts ? Object.entries({ 0: "Challenge Patches", 1: "Black Hole Badges", 2: "Sun Badges", 3: "Earth Badges", 4: "Moon Badges", 5: "Meteorite Badges" }).map(([k, v]) => userDetails.badgeCounts[k] > 0 ? `${v}: ${userDetails.badgeCounts[k]}` : "").filter(Boolean).join(", ") || "<em>No badges</em>" : "<em>This user's badges are not public.</em>"}</li>
+     
       <li>Sharable <a href='https://khanprofileviewer.web.app/?user=${username}' target='_blank'><b>Khan Profile Viewer</b></a> link
       </li>
       <li><a href='https://www.khanacademy.org/profile/${userDetails.kaid}/' target='_blank'><b>Khan Academy</b></a> Profile Permalink</li>
+      
       </ul>
       <button onclick='location.reload();' class='btn-outlined'>Logout</button>
       `;
