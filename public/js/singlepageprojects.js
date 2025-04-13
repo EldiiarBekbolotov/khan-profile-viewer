@@ -1,5 +1,6 @@
 const hardCodedClassifications = {};
 let username = '';
+
 function setupProfile(ur) {
   if (ur) {
     username = ur;
@@ -690,7 +691,7 @@ async function initialize(countLines) {
     if (programDetails.length > 0) {
       
       userDetails = await fetchUserDetails();
-      console.log(userDetails);
+      //console.log(userDetails);
       document.getElementById('user-profile').innerHTML = `
       <h1>@${username}</h1>
       <p>Nickname: ${userDetails.nickname?userDetails.nickname:"This user's nickname is not public."}</p>
@@ -701,13 +702,37 @@ async function initialize(countLines) {
      
       <li>${userDetails.points?userDetails.points + " Experience Points":"<em>This user's points are not public.</em>"}
       </li>
-      <li><b>User Badges</b>: ${userDetails.badgeCounts ? Object.entries({ 0: "Challenge Patches", 1: "Black Hole Badges", 2: "Sun Badges", 3: "Earth Badges", 4: "Moon Badges", 5: "Meteorite Badges" }).map(([k, v]) => userDetails.badgeCounts[k] > 0 ? `${v}: ${userDetails.badgeCounts[k]}` : "").filter(Boolean).join(", ") || "<em>No badges</em>" : "<em>This user's badges are not public.</em>"}</li>
+      <li><b>User Badges</b>: ${userDetails.badgeCounts
+        ? Object.entries({
+            0: { name: "Meteorite Badges", color: "#f54900" },
+            1: { name: "Moon Badges", color: "lightgray" },
+            2: { name: "Earth Badges", color: "#00a63e" },
+            3: { name: "Sun Badges", color: "gold" },
+            4: { name: "Black Hole Badges", color: "#9810fa" },
+            5: { name: "Challenge Patches", color: "lightblue" }
+          })
+            .map(
+              ([k, { name, color }]) =>
+                `<span style="color:${color}">${name}: ${userDetails.badgeCounts[k] ?? 0}</span>`
+            )
+            .join(", ")
+        : "<em>This user's badges are not public.</em>"}
+      
+      </li>
      
       <li>Sharable <a href='https://khanprofileviewer.web.app/?user=${username}' target='_blank'><b>Khan Profile Viewer</b></a> link
       </li>
       <li><a href='https://www.khanacademy.org/profile/${userDetails.kaid}/' target='_blank'><b>Khan Academy</b></a> Profile Permalink</li>
       
       </ul>
+
+      <button
+	  onclick="scene(1);"
+	  class="btn btn-outlined"
+	>
+	 View Projects
+	  <span class="material-symbols-rounded">arrow_forward</span>
+	</button>
       <button onclick='location.reload();' class='btn-outlined'>Logout</button>
       `;
       if (countLines === 'ok') {
@@ -816,6 +841,34 @@ document
   });
 
 
-
+  const DURATION_PER_LETTER = 1000;
+  const DELAY_BETWEEN_LETTERS = 50;
+  const PAUSE_AFTER = 2000;
+  document.querySelectorAll('.dancing-text').forEach((el) => {
+    const text = el.textContent;
+    el.textContent = '';
+  
+    const spans = text.split('').map((char, i) => {
+      const span = document.createElement('span');
+      span.textContent = char;
+      el.appendChild(span);
+      return span;
+    });
+  
+    function animateLetters() {
+      spans.forEach((span, i) => {
+        setTimeout(() => {
+          span.style.animation = 'none';
+          void span.offsetWidth; 
+          span.style.animation = `bounce ${DURATION_PER_LETTER}ms ease-in-out`;
+        }, i * DELAY_BETWEEN_LETTERS);
+      });
+  
+      const totalDuration = spans.length * DELAY_BETWEEN_LETTERS + DURATION_PER_LETTER + PAUSE_AFTER;
+      setTimeout(animateLetters, totalDuration);
+    }
+  
+    animateLetters();
+  });
 
 scene(0);

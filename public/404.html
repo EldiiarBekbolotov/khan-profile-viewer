@@ -12,27 +12,33 @@
     <meta charset="UTF-8"> <meta http-equiv="Content-Language" content="en_US" /><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" /><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" /><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" /><link rel="manifest" href="/site.webmanifest" /><meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 Not Found</title>
+    <link
+		href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
     <style>
         body {
-            font-family: monospace;
+            font-family: 'Noto Sans', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
+            background-color: #f6d1d1;
         }
         .container {
             text-align: center;
             padding: 20px;
             background-color: #fff;
-            border-radius: 0px;
-            box-shadow: 0 2px 42px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            border: 1px solid rgb(195, 10, 10);
         }
         h1 {
             font-size: 3em;
             color: #333;
             margin-bottom: 10px;
+            font-weight: 100;
         }
         p {
             font-size: 1.2em;
@@ -42,17 +48,26 @@
         a {
             color: red;
             text-decoration: none;
+            border: 1px solid red;
+            padding: 5px;
+            height: 36px;
+            line-height: 36px;
         }
         a:hover {
+            background: red;
+            color: white;
             text-decoration: underline;
+        }
+        i {
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>404 Error</h1>
-        <p>Oops! The page you are looking for does not exist.</p>
-        <a href="index.html">Go back to the Khan Profile Viewer homepage</a>
+        <p><i class="material-symbols-rounded">warning</i> The page you are looking for does not exist.</p>
+        <a href="index.html">Go back to the Khan Profile Viewer homepage <i class="material-symbols-rounded">arrow_forward</i></a>
     </div>
 </body>
 </html>

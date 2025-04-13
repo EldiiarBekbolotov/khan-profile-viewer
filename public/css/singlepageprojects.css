@@ -1,10 +1,9 @@
 * {
-  --bg: #2e3227;
+  --bg: #1a2227;
   --display-font: "Roboto", Helvetica, arial;
   --main-font: "IBM Plex Sans", Helvetica, arial;
   /*--primary: #21ed71;*/
   --primary: #b00314;
-  /* trackstar color vibe */
 
   --text-color: #fff;
   --btn-text-color: #ffffff;
@@ -23,6 +22,23 @@ body {
   width: 100%;
   color: var(--text-color);
 }
+.dancing-text span {
+  display: inline-block;
+  transform-origin: bottom center;
+}
+
+@keyframes bounce {
+  0%   { transform: translateY(0); }
+  25%  { transform: translateY(-10px); }
+  50%  { transform: translateY(0); }
+  60%  { transform: translateY(2px) rotate(2deg); }
+  70%  { transform: translateY(0) rotate(-2deg); }
+  80%  { transform: translateY(2px) rotate(1deg); }
+  90%  { transform: translateY(0) rotate(-1deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+
 #throw {
   position: fixed;
   top: 0;
@@ -325,7 +341,7 @@ body {
 }
 
 input {
-  background-color: #2e3227;
+  background-color: var(--bg);
   color: rgb(255, 255, 255);
   border: 1px solid rgba(255, 255, 255, 0.4);
   transition: border 0.15s;
