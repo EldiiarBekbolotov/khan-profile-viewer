@@ -32,6 +32,9 @@
 		<a href="#!" onclick="scene(3);toggleNav();"
 			class="mobile-navlink"><span class="material-symbols-rounded">code</span>
 			Playground</a>
+		<a href="#!" onclick="document.getElementById('downloadAllBtn').click();toggleNav();"
+			class="mobile-navlink"><span class="material-symbols-rounded">download</span>
+			Download All Programs</a>
 	</div>
 
 	<nav class="navbar-fixed">
@@ -49,8 +52,11 @@
 			class="navlink navselector active"><span class="material-symbols-rounded">developer_mode_tv</span>
 			Editor</a>
 		<a href="#!" onclick="scene(3);"
-			class="navlink navselector active"><span class="material-symbols-rounded">code</span>
+			class="navlink navselector"><span class="material-symbols-rounded">code</span>
 			Playground</a>
+		<a href="#!" id="downloadAllBtn" class="navlink" style="margin-left: auto;">
+			<span class="material-symbols-rounded">download</span> Download All Programs
+		</a>
 		</div>
 	</nav>
 	<div style="height: 70px"></div>
@@ -213,12 +219,16 @@
 					<button onclick="openPopup(0);" class="btn-fab">
               <span class="material-symbols-rounded">settings</span>
             </button>
+			<button class="btn" onclick="downloadProgramWithStats();" id="downloadBtn" style="display: none;margin-bottom:15px;">
+					<span class="material-symbols-rounded">download</span> Download
+			</button>
 				</div>
 			</div>
 			<div id="stats"></div>
 			<nav class="navbar-flex">
 				<a class="navbar-flex-link" onclick="openComments();">Comments</a>
 				<a class="navbar-flex-link" onclick="openQuestions();">Questions</a>
+				
 			</nav>
 			<div id="discussion">
 				<div id="questions"></div>
@@ -336,5 +346,6 @@
 
 	<script src="https://cdn.jsdelivr.net/npm/@bhavjit/khan-api"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/ext-language_tools.min.js"
 		integrity="sha512-yszTJ9Ko+JGmUNZYpHStWpMg2rSXrh2WjSSZGydzpHY+qOS/3nSgA+hBHUK3RvLhfjycKL8XWEmfUCZod/mEqA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="js/khanapi.min.js"></script><script src="js/ace.min.js"></script><script src="js/singlepageprojects.js"></script>
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="js/khanapi.min.js"></script><script src="js/ace.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="js/singlepageprojects.js"></script>
 </body></html>

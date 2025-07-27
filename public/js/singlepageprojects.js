@@ -118,17 +118,17 @@ function openPopup(index, type) {
   popup.style.display = 'none';
   });*/
   if (type === "close") {
-
-    document.getElementsByClassName("popup")[index].style.animation =
-      "0.1s slideOut forwards";
+    document.getElementsByClassName("popup")[index].style.display = 'none';
+    /*document.getElementsByClassName("popup")[index].style.animation =
+      "0.1s slideOut forwards";*/
   } else if (type === 'hide') {
     document.getElementsByClassName("popup")[index].style.display = 'none';
-    document.getElementsByClassName("popup")[index].style.animation =
-      "0.1s slideOut forwards";
+    /*document.getElementsByClassName("popup")[index].style.animation =
+      "0.1s slideOut forwards";*/
   } else {
     document.getElementsByClassName("popup")[index].style.display = 'block';
-    document.getElementsByClassName("popup")[index].style.animation =
-      "0.6s slideIn forwards";
+    /*document.getElementsByClassName("popup")[index].style.animation =
+      "0.6s slideIn forwards";*/
   }
 }
 openPopup(0, 'hide');
@@ -331,6 +331,10 @@ async function setupEditor(programIndex) {
 <h2 class='center'>No questions yet.</h2>
 
 </div>`;
+
+    // Show download button for demo programs too
+    document.getElementById("downloadBtn").style.display = "none";
+
   } else {
     const editor = ace.edit("editor");
     const selectedProgram = filteredPrograms[programIndex];
@@ -416,7 +420,7 @@ async function setupEditor(programIndex) {
     //console.log(stats.tipsAndThanks);
     document.getElementById("stats").innerHTML = `
           <ul>
-             
+
 <li><span class="material-symbols-rounded">favorite</span> ${stats.votes} Votes</li>
 <li><span class="material-symbols-rounded">code</span> ${stats.lines} Lines of code</li>
 <li> <span class="material-symbols-rounded">forum</span> ${stats.replyCount} Comments</li>
@@ -427,6 +431,9 @@ async function setupEditor(programIndex) {
 <li>Code license: <a href='https://opensource.org/license/mit' target='_blank'>MIT</a>. For more information, <span class="material-symbols-rounded">open_in_new</span> <a href=${stats.url} target='_blank'>Visit on Khan Academy</a></li>
 </ul>
 `;
+
+    // Show download button for real programs
+    document.getElementById("downloadBtn").style.display = "block";
 
     if (stats.tipsAndThanks && stats.tipsAndThanks.length >= 1) {
       let tipsAndThanksHTML = "";
@@ -833,6 +840,244 @@ function runCode() {
     );
   }
 }
+
+function getFileExtension(type) {
+  switch (type) {
+    case "ace/mode/javascript":
+      return 'js';
+    case "ace/mode/python":
+      return 'py';
+    case "ace/mode/sql":
+      return 'sql';
+    case "ace/mode/html":
+      return 'html';
+    default:
+      return 'txt';
+  }
+}
+
+async function downloadProgramWithStats() {
+  const programIndex = document
+    .querySelector(".programSelector.active")
+    ?.getAttribute("data-index");
+
+  if (programIndex === undefined || programIndex === null) {
+    alert("Please select a program first.");
+    return;
+  }
+
+  try {
+    const selectedProgram = filteredPrograms[programIndex];
+    const editor = ace.edit("editor");
+    const code = editor.getValue();
+
+    if (!code || code.trim() === '') {
+      alert("No code to download.");
+      return;
+    }
+
+    // Get current stats from the stats div
+    const statsElement = document.getElementById("stats");
+    const statsText = statsElement.innerText || statsElement.textContent || "No statistics available";
+
+    // Get current date and time
+    const formattedTime = new Date().toLocaleString();
+
+    // Create the statistics comment
+    const statsComment = `<!--
+PROGRAM STATISTICS:
+Title: ${selectedProgram.title}
+${statsText}
+
+Downloaded: ${formattedTime}
+Downloaded using: KHAN PROFILE VIEWER (https://github.com/EldiiarBekbolotov/khan-profile-viewer)
+-->`;
+
+    let fileContent;
+    let fileName;
+    let fileExtension;
+
+    // Check if it's an HTML program
+    if (selectedProgram.type === "ace/mode/html") {
+      // For HTML programs, insert the comment after the DOCTYPE
+      const lines = code.split('\n');
+      let insertIndex = 0;
+
+      // Find the line after DOCTYPE declaration or HTML tag
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i].toLowerCase().trim();
+        if (line.includes('<!doctype') || line.includes('<html')) {
+          insertIndex = i + 1;
+          break;
+        }
+      }
+
+      // If no DOCTYPE or HTML tag found, insert at the beginning
+      if (insertIndex === 0 && lines.length > 0) {
+        insertIndex = 0;
+      }
+
+      // Insert the stats comment
+      lines.splice(insertIndex, 0, statsComment);
+      fileContent = lines.join('\n');
+      fileExtension = 'html';
+    } else {
+      // For non-HTML programs, add stats as a comment at the top
+      let commentPrefix;
+      switch (selectedProgram.type) {
+        case "ace/mode/javascript":
+          commentPrefix = "//";
+          fileExtension = 'js';
+          break;
+        case "ace/mode/python":
+          commentPrefix = "#";
+          fileExtension = 'py';
+          break;
+        case "ace/mode/sql":
+          commentPrefix = "--";
+          fileExtension = 'sql';
+          break;
+        default:
+          commentPrefix = "//";
+          fileExtension = 'txt';
+      }
+
+      const formattedStatsComment = statsComment
+        .split('\n')
+        .map(line => {
+          if (line.startsWith('<!--') || line.startsWith('-->')) {
+            return `${commentPrefix} ${line.replace(/<!--\s*|-->/g, '')}`;
+          }
+          return `${commentPrefix} ${line}`;
+        })
+        .join('\n');
+
+      fileContent = formattedStatsComment + '\n\n' + code;
+    }
+
+    // Clean filename (remove special characters)
+    const cleanTitle = selectedProgram.title.replace(/[^a-zA-Z0-9\s-_]/g, '').replace(/\s+/g, '_');
+    fileName = `${cleanTitle}.${fileExtension}`;
+
+    // Create and trigger download
+    const blob = new Blob([fileContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    console.log(`Downloaded: ${fileName}`);
+  } catch (error) {
+    console.error('Error downloading program:', error);
+    alert('Error downloading program. Please try again.');
+  }
+}
+
+// Add event listener for download all button
+document.getElementById('downloadAllBtn').addEventListener('click', async function() {
+  if (!programDetails || programDetails.length === 0) {
+    alert('No programs available to download.');
+    return;
+  }
+  
+  try {
+    const zip = new JSZip();
+    const folder = zip.folder('KhanProfileViewer');
+    let completed = 0;
+    const total = programDetails.length;
+    
+    // Create progress indicator
+    const progressDiv = document.createElement('div');
+    progressDiv.style.position = 'fixed';
+    progressDiv.style.top = '0%';
+    progressDiv.style.left = '0%';
+    progressDiv.style.bottom = '0%';
+    progressDiv.style.right = '0%';
+    progressDiv.style.width = '100%';
+    progressDiv.style.height = '100%';
+    progressDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+    progressDiv.style.color = 'white';
+    progressDiv.style.padding = '20px';
+    progressDiv.style.borderRadius = '8px';
+    progressDiv.style.zIndex = '1000';
+    progressDiv.style.textAlign = 'center';
+    progressDiv.innerHTML = `
+      <h3>Downloading Programs</h3>
+      <p>Preparing to download ${total} programs...</p>
+      <div id="downloadProgress" style="margin: 10px 0; font-size: 14px;">0/${total} downloaded</div>
+      <div style="width: 100%; background-color: #333; border-radius: 4px; height: 20px; overflow: hidden;">
+        <div id="progressBar" style="height: 100%; width: 0%; background-color: #4CAF50; transition: width 0.3s;"></div>
+      </div>
+    `;
+    document.body.appendChild(progressDiv);
+    
+    // Update progress function
+    const updateProgress = () => {
+      completed++;
+      const progress = Math.floor((completed / total) * 100);
+      document.getElementById('downloadProgress').textContent = `${completed}/${total} downloaded`;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+      
+      if (completed === total) {
+        progressDiv.innerHTML += '<p>Creating zip file, please wait...</p>';
+      }
+    };
+    
+    // Download each program
+    for (const program of programDetails) {
+      try {
+        const code = await fetchProgramCode(program.id);
+        if (code) {
+          // Clean filename
+          const cleanTitle = program.title.replace(/[^a-zA-Z0-9\s-_]/g, '').replace(/\s+/g, '_');
+          const fileExtension = getFileExtension(program.type);
+          const fileName = `${cleanTitle}.${fileExtension}`;
+          
+          // Add file to zip
+          folder.file(fileName, code);
+          updateProgress();
+        } else {
+          console.warn(`Failed to download program: ${program.title}`);
+          updateProgress();
+        }
+      } catch (error) {
+        console.error(`Error downloading program ${program.title}:`, error);
+        updateProgress();
+      }
+      
+      // Small delay to avoid rate limiting
+      await new Promise(resolve => setTimeout(resolve, 500));
+    }
+    
+    // Generate zip file
+    const content = await zip.generateAsync({ type: 'blob' });
+    const url = URL.createObjectURL(content);
+    
+    // Create download link
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'KhanProfileViewer.zip';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    // Remove progress indicator after a delay
+    setTimeout(() => {
+      if (document.body.contains(progressDiv)) {
+        document.body.removeChild(progressDiv);
+      }
+    }, 2000);
+    
+  } catch (error) {
+    console.error('Error creating zip file:', error);
+    alert('An error occurred while creating the zip file. Please try again.');
+  }
+});
 
 document
   .getElementById("runButton")
